@@ -8,4 +8,11 @@
     <string name="search">Search</string>
     <string name="ratings">Ratings</string>
     <string name="developed_by_shenal">Developed by Shenal</string>
+    <string name="title_of_film">Title of Film</string>
+    <string name="year">Year</string>
+    <string name="director">Director</string>
+    <string name="actors_actresses">Actors/Actresses</string>
+    <string name="rating">Rating</string>
+    <string name="review">Review</string>
+    <string name="save">Save</string>
 </resources>
