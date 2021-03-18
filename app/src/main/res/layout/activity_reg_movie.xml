@@ -99,7 +99,7 @@
         android:textColorHint="#111"
         android:fontFamily="@font/nunito_bold"
         android:hint="@string/rating"
-        android:inputType="textPersonName"
+        android:inputType="number"
         android:textAlignment="center"
         android:gravity="center"
         android:padding="10dp"
