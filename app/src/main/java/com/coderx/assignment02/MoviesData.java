@@ -16,8 +16,8 @@ public class MoviesData extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "movies.db";
     private static final int DATABASE_VERSION = 1;
     private static String[] FROM = { MovieConstant.ID, MovieConstant.MOVIE_TITLE, MovieConstant.YEAR, MovieConstant.DIRECTOR,
-     MovieConstant.ACTORS, MovieConstant.RATING, MovieConstant.REVIEW, MovieConstant.IS_FAV};
-    private static final String ORDER_BY = "ASC";
+            MovieConstant.ACTORS, MovieConstant.RATING, MovieConstant.REVIEW, MovieConstant.IS_FAV,};
+    private static final String ORDER_BY = " ASC";
     public MoviesData(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -34,7 +34,7 @@ public class MoviesData extends SQLiteOpenHelper {
         + MovieConstant.ACTORS + " TEXT NOT NULL,"
         + MovieConstant.RATING + " INTEGER,"
         + MovieConstant.REVIEW + " TEXT NOT NULL,"
-        + MovieConstant.IS_FAV + "BOOLEAN);");
+        + MovieConstant.IS_FAV + " NUMERIC);");
 
     }
 
@@ -45,17 +45,17 @@ public class MoviesData extends SQLiteOpenHelper {
     }
 
     /*adding data to the database*/
-    public void addMovie(String title, int year, String director, String actors, int rating,
-                         String review, boolean is_fav, MoviesData moviesData){
+    public void addMovie(Movie movie,MoviesData moviesData){
         Log.d(TAG, "addMovie: adding a movie to database");
         SQLiteDatabase db = moviesData.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(MovieConstant.MOVIE_TITLE, title);
-        values.put(MovieConstant.YEAR,year);
-        values.put(MovieConstant.DIRECTOR, director);
-        values.put(MovieConstant.ACTORS, actors);
-        values.put(MovieConstant.RATING, rating);
-        values.put(MovieConstant.REVIEW, review);
+        values.put(MovieConstant.MOVIE_TITLE, movie.getTitle());
+        values.put(MovieConstant.YEAR,movie.getYear());
+        values.put(MovieConstant.DIRECTOR, movie.getDirector());
+        values.put(MovieConstant.ACTORS, movie.getActors());
+        values.put(MovieConstant.RATING, movie.getRating());
+        values.put(MovieConstant.REVIEW, movie.getReview());
+        values.put(MovieConstant.IS_FAV, 0);
         db.insertOrThrow(MovieConstant.TABLE_NAME,null,values);
         Log.d(TAG, "addMovie: movie added successfully");
 
@@ -84,9 +84,9 @@ public class MoviesData extends SQLiteOpenHelper {
         return movies; // returning all movies from the database
     }
 
-    private Cursor getCursor(MoviesData moviesData){
+    public Cursor getCursor(MoviesData moviesData){
         SQLiteDatabase db = moviesData.getReadableDatabase();
-        Cursor cursor = db.query(MovieConstant.TABLE_NAME,FROM,null,null,null,null,ORDER_BY);
+        Cursor cursor = db.query(MovieConstant.TABLE_NAME,FROM,null,null,null,null,MovieConstant.MOVIE_TITLE+ORDER_BY);
         return cursor;
     }
 }
