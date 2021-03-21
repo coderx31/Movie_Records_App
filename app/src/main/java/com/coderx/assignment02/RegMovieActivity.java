@@ -68,6 +68,7 @@ public class RegMovieActivity extends AppCompatActivity {
             movieData.addMovie(movie,movieData);
             Toast.makeText(this, "Movie Added to the database", Toast.LENGTH_SHORT).show();
             Log.d(TAG, "createMovie: Successfully added to the database");
+            clearFields();
         }catch (Exception ex){
             System.out.println("Error Occurred!");
             Toast.makeText(this, "Error while creating movie", Toast.LENGTH_SHORT).show();
@@ -77,6 +78,17 @@ public class RegMovieActivity extends AppCompatActivity {
         }
 
         //DONE
+    }
+
+
+    private void clearFields(){
+        Log.d(TAG, "clearFields: method called!");
+        input_name.setText("");
+        input_year.setText("");
+        input_director.setText("");
+        input_actors.setText("");
+        input_rating.setText("");
+        input_review.setText("");
     }
 
 

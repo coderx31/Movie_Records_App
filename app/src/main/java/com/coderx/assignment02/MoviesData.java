@@ -89,4 +89,27 @@ public class MoviesData extends SQLiteOpenHelper {
         Cursor cursor = db.query(MovieConstant.TABLE_NAME,FROM,null,null,null,null,MovieConstant.MOVIE_TITLE+ORDER_BY);
         return cursor;
     }
+
+    /*adding selected movies as favourite to database*/
+    public void addFavourite(int id, MoviesData moviesData){
+        Log.d(TAG, "addFavourite: updating movie");
+        SQLiteDatabase db = moviesData.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(MovieConstant.IS_FAV,1); // setting the is_fav to 1 in db
+
+        // getting the cursor with rawQuery
+        Cursor cursor = db.rawQuery("SELECT * FROM "+MovieConstant.TABLE_NAME+" WHERE "+MovieConstant.ID+" = ?", new String[] {String.valueOf(id)});
+
+        if (cursor.getCount() > 0){ // if the data available
+            db.update(MovieConstant.TABLE_NAME,values,MovieConstant.ID+ " = ?",new String[]{String.valueOf(id)});
+            Log.d(TAG, "addFavourite: updated");
+        }else{ // if not
+            Log.d(TAG, "addFavourite: error while updating");
+        }
+
+
+
+
+
+    }
 }
