@@ -5,7 +5,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
@@ -16,42 +15,43 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class DisplayRecViewAdapter extends RecyclerView.Adapter<DisplayRecViewAdapter.ViewHolder> {
-    private static final String TAG = "DisplayRecViewAdapter";
+public class FavouriteRecViewAdapter extends RecyclerView.Adapter<FavouriteRecViewAdapter.ViewHolder>  {
+    private static final String TAG = "FavouriteRecViewAdapter";
     private ArrayList<Movie> movies = new ArrayList<>();  // creating arrayList for set the data to adapter
     private Context mContext;
     private MoviesData moviesData;
 
-    public DisplayRecViewAdapter(Context mContext){
-        this.mContext = mContext;
+    public FavouriteRecViewAdapter(Context context){
+        this.mContext = context;
+
     }
+
 
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.display_movie_list,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.favourite_movie_list,parent,false);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        Log.d(TAG, "onBindViewHolder: Called");
+        Log.d(TAG, "onBindViewHolder: called");
         holder.txtTitle.setText(movies.get(position).getTitle());
 
-        /*when user select any movie, then the is_fav set to true*/
         holder.favCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 Movie movie = movies.get(position);
-                if (b){
-                    movie.setFav(true);
-                }else{
+                if (!b){
                     movie.setFav(false);
+                }else{
+                    movie.setFav(true);
                 }
 
-               notifyItemChanged(position); // to notify that item has been changed
+                notifyItemChanged(position); // to notify that item has been changed
             }
         });
 
@@ -61,6 +61,7 @@ public class DisplayRecViewAdapter extends RecyclerView.Adapter<DisplayRecViewAd
     public int getItemCount() {
         return movies.size();
     }
+
 
     public void setMovies(ArrayList<Movie> movies) {
         this.movies = movies;
@@ -78,25 +79,19 @@ public class DisplayRecViewAdapter extends RecyclerView.Adapter<DisplayRecViewAd
             txtTitle = itemView.findViewById(R.id.txtTitle);
             favCheck = itemView.findViewById(R.id.favCheck);
 
-
-
+            favCheck.setChecked(true);
         }
-
-
-
     }
 
-    /*updating the db when user pressed add to favourite button*/
     public void updateDB(Context context){
-        moviesData = new MoviesData(context);
-        /*use a for loop to update all selected item*/
+        MoviesData moviesData = new MoviesData(context);
         for (int i=0; i<movies.size(); i++){
             boolean isTicked = movies.get(i).isFav();
-            if (isTicked){
-                Log.d(TAG, "updateDB: addFavourite Method called");
-                moviesData.addFavourite(movies.get(i).getId(),moviesData);
+            if (!isTicked){
+                Log.d(TAG, "updateDB: add to favourite method call");
+                moviesData.updateFav(movies.get(i).getId(),moviesData);
             }else{
-                Log.d(TAG, "updateDB: addFavourite Method didn't called");
+                Log.d(TAG, "updateDB: did nit call");
             }
         }
     }

@@ -52,7 +52,8 @@ public class RegMovieActivity extends AppCompatActivity {
         /*setting the range with input-filter*/
         /*setting the range to 1895 - current year*/
         int year = Calendar.getInstance().get(Calendar.YEAR);
-       // input_year.setFilters(new InputFilter[]{new NumberRange("1895","2021")});
+       //input_year.setFilters(new InputFilter[]{new NumberRange(1895,year)});
+        /* error on year input - needs to clear that*/
 
         /*setting the range to 1-10*/
         input_rating.setFilters(new InputFilter[]{new NumberRange("1","10")});

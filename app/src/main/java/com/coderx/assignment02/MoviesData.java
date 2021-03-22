@@ -6,9 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-
 import androidx.annotation.Nullable;
-
 import java.util.ArrayList;
 
 public class MoviesData extends SQLiteOpenHelper {
@@ -107,9 +105,54 @@ public class MoviesData extends SQLiteOpenHelper {
             Log.d(TAG, "addFavourite: error while updating");
         }
 
+    }
 
 
+    /*retrieving favourite films*/
+    public ArrayList<Movie> favMovies(Cursor cursor){
+        //String sql = "SELECT * FROM "+MovieConstant.TABLE_NAME + " WHERE " + MovieConstant.IS_FAV + " = 1";
+        ArrayList<Movie> movies = new ArrayList<>();
+        while (cursor.moveToNext()){
+            int id = cursor.getInt(0);
+            String title = cursor.getString(1);
+            int year = cursor.getInt(2);
+            String director = cursor.getString(3);
+            String actors = cursor.getString(4);
+            int rating = cursor.getInt(5);
+            String review = cursor.getString(6);
+            boolean is_fav = cursor.getInt(7) == 1;
 
+            /*creating the movie object*/
+            Movie movie = new Movie(id,title,year,director,actors,rating,review,is_fav);
+            /*adding the movie object to arrayList*/
+            movies.add(movie);
+        }
+
+        return movies;
 
     }
+
+    public Cursor getFavMovies(MoviesData moviesData){
+        SQLiteDatabase db = moviesData.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM "+MovieConstant.TABLE_NAME+" WHERE "+MovieConstant.IS_FAV+ " = ?",new String[]{String.valueOf(1)});
+        return cursor;
+    }
+
+    public void updateFav(int id, MoviesData moviesData){
+        Log.d(TAG, "updateFav: updating movie");
+        SQLiteDatabase db = moviesData.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(MovieConstant.IS_FAV,0); // setting the is_fav to 0 in db
+
+        // getting the cursor with rawQuery
+        Cursor cursor = db.rawQuery("SELECT * FROM "+MovieConstant.TABLE_NAME+" WHERE "+MovieConstant.ID+" = ?", new String[] {String.valueOf(id)});
+
+        if (cursor.getCount() > 0){ // if the data available
+            db.update(MovieConstant.TABLE_NAME,values,MovieConstant.ID+ " = ?",new String[]{String.valueOf(id)});
+            Log.d(TAG, "updateFav: updated");
+        }else{ // if not
+            Log.d(TAG, "updateFav: error while updating");
+        }
+    }
+
 }
