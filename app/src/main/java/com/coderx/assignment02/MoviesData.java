@@ -155,4 +155,55 @@ public class MoviesData extends SQLiteOpenHelper {
         }
     }
 
+
+    /*Update Selected Movie*/
+    public void updateSelectedMovie(int id, MoviesData moviesData, Movie movie){
+
+        Log.d(TAG, "updateSelectedMovie: updating selected movie");
+        SQLiteDatabase db = moviesData.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(MovieConstant.MOVIE_TITLE, movie.getTitle());
+        values.put(MovieConstant.YEAR,movie.getYear());
+        values.put(MovieConstant.DIRECTOR, movie.getDirector());
+        values.put(MovieConstant.ACTORS,movie.getActors());
+        values.put(MovieConstant.RATING,movie.getRating());
+        values.put(MovieConstant.REVIEW, movie.getReview());
+        values.put(MovieConstant.IS_FAV, movie.isFav() ? 1 : 0 );
+
+
+        Cursor cursor = db.rawQuery("SELECT * FROM "+MovieConstant.TABLE_NAME+" WHERE "+MovieConstant.ID+" = ?", new String[] {String.valueOf(id)});
+
+        if (cursor.getCount() > 0){ // if the data available
+            db.update(MovieConstant.TABLE_NAME,values,MovieConstant.ID+ " = ?",new String[]{String.valueOf(id)});
+            Log.d(TAG, "updateFav: updated");
+        }else{ // if not
+            Log.d(TAG, "updateFav: error while updating");
+        }
+
+    }
+
+    /* get selected movie from the db and create a movie object*/
+    public Cursor getSelectedMovie(MoviesData moviesData, int id){
+        SQLiteDatabase db = moviesData.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM "+MovieConstant.TABLE_NAME+" WHERE "+ MovieConstant.ID+ " = ?", new String[]{String.valueOf(id)});
+        return cursor;
+    }
+
+    public Movie selectedMovie(Cursor cursor){
+        // creating the movie object
+        Movie movie = new Movie();
+        while (cursor.moveToNext()){
+            movie.setId(cursor.getInt(0));
+            movie.setTitle(cursor.getString(1));
+            movie.setYear(cursor.getInt(2));
+            movie.setDirector(cursor.getString(3));
+            movie.setActors(cursor.getString(4));
+            movie.setRating(cursor.getInt(5));
+            movie.setReview(cursor.getString(6));
+            movie.setFav(cursor.getInt(7) == 1);
+        }
+
+        return movie;
+    }
+
 }

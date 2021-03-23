@@ -3,7 +3,9 @@ package com.coderx.assignment02;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.InputFilter;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -49,14 +51,45 @@ public class RegMovieActivity extends AppCompatActivity {
         btnSave = findViewById(R.id.btnSave);
 
 
-        /*setting the range with input-filter*/
-        /*setting the range to 1895 - current year*/
-        int year = Calendar.getInstance().get(Calendar.YEAR);
-       //input_year.setFilters(new InputFilter[]{new NumberRange(1895,year)});
-        /* error on year input - needs to clear that*/
-
         /*setting the range to 1-10*/
         input_rating.setFilters(new InputFilter[]{new NumberRange("1","10")});
+
+        /*Text watcher for limit year between 1895 - current year*/
+        TextWatcher textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String value = editable.toString();
+                int min = 1895;
+                int max = Calendar.getInstance().get(Calendar.YEAR); // getting the current year
+                int n = 0;
+                 try{
+                     n = Integer.parseInt(value);
+                     if (value.length() == 4){
+                         if (n < min) {
+                             editable.replace(0, editable.length(), String.valueOf(min));
+                         } else if (n > max) {
+                             editable.replace(0, editable.length(), String.valueOf(max));
+                         }
+                     }
+
+                 }catch (NumberFormatException ex){
+                     System.out.println(ex.getMessage());
+                 }
+
+            }
+        };
+
+        input_year.addTextChangedListener(textWatcher); // adding the txtWatcher
     }
 
     private void createMovie(){

@@ -21,6 +21,10 @@ public class Movie {
         this.isFav = isFav;
     }
 
+    public Movie(){
+
+    }
+
     public int getId() {
         return id;
     }

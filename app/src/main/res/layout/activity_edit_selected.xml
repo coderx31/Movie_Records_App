@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/portrait_bg"
+    tools:context=".EditSelectedActivity">
+
+    <EditText
+        android:id="@+id/movieTitle"
+        android:layout_width="230dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:fontFamily="@font/nunito_bold"
+        android:hint="@string/title_of_film"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:padding="10dp"
+        android:backgroundTint="@color/lightBlue"
+        android:textColor="#000"
+        android:textColorHint="#111"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/movieYear"
+        android:layout_width="230dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:fontFamily="@font/nunito_bold"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:padding="10dp"
+        android:hint="@string/year"
+        android:backgroundTint="@color/lightBlue"
+        android:textColor="#000"
+        android:textColorHint="#111"
+        android:inputType="number"
+        android:maxLength="4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/movieTitle" />
+
+    <EditText
+        android:id="@+id/movieDirector"
+        android:layout_width="230dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:fontFamily="@font/nunito_bold"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:padding="10dp"
+        android:hint="@string/director"
+        android:backgroundTint="@color/lightBlue"
+        android:textColor="#000"
+        android:textColorHint="#111"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/movieYear" />
+
+    <EditText
+        android:id="@+id/movieActors"
+        android:layout_width="230dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:fontFamily="@font/nunito_bold"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:padding="10dp"
+        android:hint="@string/actors_actresses"
+        android:backgroundTint="@color/lightBlue"
+        android:textColor="#000"
+        android:textColorHint="#111"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/movieDirector" />
+
+    <RatingBar
+        android:id="@+id/movieRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="10"
+        android:stepSize="1.0"
+        android:isIndicator="false"
+        style="?android:attr/ratingBarStyleSmall"
+        android:progressTint="@color/yellow"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/movieActors" />
+
+    <EditText
+        android:id="@+id/movieReview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:fontFamily="@font/nunito_bold"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:padding="10dp"
+        android:hint="@string/review"
+        android:backgroundTint="@color/lightBlue"
+        android:textColor="#000"
+        android:textColorHint="#111"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/movieRating" />
+
+    <RadioGroup
+        android:id="@+id/favourite_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/btnUpdate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/movieReview">
+
+        <RadioButton
+            android:id="@+id/fav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="48dp"
+            android:text="@string/favourite"
+            android:textColor="#000"
+            android:textSize="18sp"
+            android:fontFamily="@font/nunito_bold"
+            app:layout_constraintEnd_toStartOf="@+id/notFav"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteY="430dp" />
+
+        <RadioButton
+            android:id="@+id/notFav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:text="@string/not_favourite"
+            android:textColor="#000"
+            android:textSize="18sp"
+            android:fontFamily="@font/nunito_bold"
+            app:layout_constraintBottom_toBottomOf="@+id/fav"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/fav" />
+
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/btnUpdate"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="116dp"
+        android:text="@string/update"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        android:fontFamily="@font/poppins_semibold"
+        android:background="#2196f3"
+        android:textColor="#fff"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
