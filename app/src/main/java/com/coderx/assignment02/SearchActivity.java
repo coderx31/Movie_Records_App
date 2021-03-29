@@ -39,13 +39,10 @@ public class SearchActivity extends AppCompatActivity {
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO
-                // get the char sequence from user_input
-                // with that call the search filter
                 Log.d(TAG, "onClick: clicked");
-                Toast.makeText(SearchActivity.this, "Clicked!", Toast.LENGTH_SHORT).show();
-                String user_text = user_input.getText().toString().toLowerCase();
-                adapter.getFilter().filter(user_text);
+                Toast.makeText(SearchActivity.this, "Filtering", Toast.LENGTH_SHORT).show();
+                String user_text = user_input.getText().toString().toLowerCase(); // getting the user input
+                adapter.getFilter().filter(user_text); // calling the filter method
                 Log.d(TAG, "onClick: done!");
             }
         });

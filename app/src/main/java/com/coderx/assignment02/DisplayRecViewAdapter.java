@@ -1,19 +1,15 @@
 package com.coderx.assignment02;
-
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
 
 public class DisplayRecViewAdapter extends RecyclerView.Adapter<DisplayRecViewAdapter.ViewHolder> {
@@ -25,8 +21,6 @@ public class DisplayRecViewAdapter extends RecyclerView.Adapter<DisplayRecViewAd
     public DisplayRecViewAdapter(Context mContext){
         this.mContext = mContext;
     }
-
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -77,9 +71,6 @@ public class DisplayRecViewAdapter extends RecyclerView.Adapter<DisplayRecViewAd
             parent = itemView.findViewById(R.id.parent);
             txtTitle = itemView.findViewById(R.id.txtTitle);
             favCheck = itemView.findViewById(R.id.favCheck);
-
-
-
         }
 
 

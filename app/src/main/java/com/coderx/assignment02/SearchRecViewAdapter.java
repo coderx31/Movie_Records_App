@@ -8,23 +8,19 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
 import java.util.Collection;
-
 public class SearchRecViewAdapter extends RecyclerView.Adapter<SearchRecViewAdapter.ViewHolder> implements Filterable {
     private static final String TAG = "SearchViewAdapter";
-    private ArrayList<Movie> movies = new ArrayList<>();
+    private ArrayList<Movie> movies = new ArrayList<>(); // for movies from db
     private Context mContext;
-    private ArrayList<Movie> allMovies;
+    private ArrayList<Movie> allMovies  = new ArrayList<>(); // for filtered list
 
     public SearchRecViewAdapter(Context context){
         this.mContext = context;
-        this.allMovies = new ArrayList<>(movies);
     }
 
 
@@ -44,12 +40,13 @@ public class SearchRecViewAdapter extends RecyclerView.Adapter<SearchRecViewAdap
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: Called!");
-        holder.txtTitle.setText(movies.get(position).getTitle()); // setting the movie title to text view
+        holder.txtTitle.setText(allMovies.get(position).getTitle()); // setting the movie title to text view
+
     }
 
     @Override
     public int getItemCount() {
-        return movies.size();
+        return allMovies.size();
     }
 
     @Override
@@ -62,34 +59,43 @@ public class SearchRecViewAdapter extends RecyclerView.Adapter<SearchRecViewAdap
         @Override
         protected FilterResults performFiltering(CharSequence charSequence) {
             ArrayList<Movie> filteredList = new ArrayList<>();
-            if (charSequence.toString().isEmpty()){
+            if (!charSequence.toString().isEmpty()){
                 Log.d(TAG, "performFiltering: on start");
-                // nothing to do
-                // nothing to display
-            }else{
                 // display filtered items
-                //TODO
                 //needs to implement filter for director and actor names
                 for (Movie movie : movies){
                     Log.d(TAG, "performFiltering: after button clicked");
+                    // filtering movies according to the title
                     if (movie.getTitle().toLowerCase().contains(charSequence.toString().toLowerCase())){
+                        filteredList.add(movie);
+
+                    }
+                    // filtering movies according to the director
+                    if (movie.getDirector().toLowerCase().contains(charSequence.toString().toLowerCase())){
+                        filteredList.add(movie);
+
+                    }
+                    // filtering movies according to the actors
+                    if (movie.getActors().toLowerCase().contains(charSequence.toString().toLowerCase())){
                         filteredList.add(movie);
                     }
                 }
             }
 
+
             FilterResults filterResults = new FilterResults();
             filterResults.values = filteredList;
-
+            Log.d(TAG, "performFiltering: done");
             return filterResults;
+
         }
 
         // runs on a ui thread
         @Override
         protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-            movies.clear();
-            movies.addAll((Collection<? extends Movie>) filterResults.values);
-            notifyDataSetChanged();
+            allMovies.clear(); // clearing the movie arrayList
+            allMovies.addAll((Collection<? extends Movie>) filterResults.values); // then adding the filteredList
+            notifyDataSetChanged(); // notifying when the data set has been changed
         }
     };
 
