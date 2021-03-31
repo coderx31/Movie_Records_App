@@ -21,6 +21,7 @@
         android:textStyle="bold"
         android:textAlignment="center"
         android:textColor="#fff"
+        android:textColorHint="#e6e6e6"
         app:layout_constraintEnd_toStartOf="@+id/imageButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
