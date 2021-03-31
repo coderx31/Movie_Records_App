@@ -20,4 +20,5 @@
     <string name="not_favourite">Not Favourite</string>
     <string name="favourite">Favourite</string>
     <string name="search_movie">Search Movie...</string>
+    <string name="find_movie_in_imdb">Find movie in IMDB</string>
 </resources>
