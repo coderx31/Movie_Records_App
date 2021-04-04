@@ -8,11 +8,9 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
 
 public class FavouriteRecViewAdapter extends RecyclerView.Adapter<FavouriteRecViewAdapter.ViewHolder>  {
@@ -89,9 +87,7 @@ public class FavouriteRecViewAdapter extends RecyclerView.Adapter<FavouriteRecVi
             boolean isTicked = movies.get(i).isFav();
             if (!isTicked){
                 Log.d(TAG, "updateDB: add to favourite method call");
-                moviesData.updateFav(movies.get(i).getId(),moviesData);
-            }else{
-                Log.d(TAG, "updateDB: did nit call");
+                moviesData.updateFav(movies.get(i).getId());
             }
         }
     }

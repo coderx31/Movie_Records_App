@@ -26,15 +26,29 @@ public class RatingActivity extends AppCompatActivity {
         //calling the initViews method
         initViews();
 
-        movies = moviesData.retrieveData(moviesData.getCursor(moviesData));
-        ratingRecView.setAdapter(adapter);
-        adapter.setMovies(movies);
-        ratingRecView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                movies = moviesData.retrieveData(moviesData.getCursor());
+
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ratingRecView.setAdapter(adapter);
+                        adapter.setMovies(movies);
+                        ratingRecView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
+                    }
+                });
+            }
+        }).start();
+
+
 
         btnFind.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO
                 String selectedMovie = RatingRecViewAdapter.movieTitle;
                 if (selectedMovie == null){
                     Toast.makeText(RatingActivity.this, "Please Select a Movie", Toast.LENGTH_SHORT).show();
@@ -55,4 +69,6 @@ public class RatingActivity extends AppCompatActivity {
         adapter = new RatingRecViewAdapter(this);
         moviesData = new MoviesData(this);
     }
+
+
 }

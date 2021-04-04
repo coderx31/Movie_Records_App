@@ -18,7 +18,6 @@ public class EditRecViewAdapter extends RecyclerView.Adapter<EditRecViewAdapter.
     private static final String TAG = "EditRecViewAdapter";
     private ArrayList<Movie> movies = new ArrayList<>();
     private Context mContext;
-    private MoviesData moviesData;
 
     public EditRecViewAdapter(Context context){
         this.mContext = context;

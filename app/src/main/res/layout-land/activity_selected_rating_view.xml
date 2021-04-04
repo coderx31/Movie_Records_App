@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SelectedRatingViewActivity"
-    android:background="@drawable/portrait_bg">
+    android:background="@drawable/landscape_bg">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/moviesRecView"

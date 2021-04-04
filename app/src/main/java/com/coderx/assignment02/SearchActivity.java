@@ -29,10 +29,24 @@ public class SearchActivity extends AppCompatActivity {
         //calling the initViews method
         initViews();
 
-        movies = moviesData.retrieveData(moviesData.getCursor(moviesData));
-        adapter.setMovies(movies);
-        resultMovieView.setAdapter(adapter);
-        resultMovieView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                movies = moviesData.retrieveData(moviesData.getCursor());
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        adapter.setMovies(movies);
+                        resultMovieView.setAdapter(adapter);
+                        resultMovieView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL,false));
+                    }
+                });
+            }
+        }).start();
+
+
+
 
 
 
@@ -56,4 +70,5 @@ public class SearchActivity extends AppCompatActivity {
         moviesData = new MoviesData(this);
         adapter = new SearchRecViewAdapter(this);
     }
+
 }

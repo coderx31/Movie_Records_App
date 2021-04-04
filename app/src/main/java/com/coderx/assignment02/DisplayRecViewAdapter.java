@@ -85,9 +85,7 @@ public class DisplayRecViewAdapter extends RecyclerView.Adapter<DisplayRecViewAd
             boolean isTicked = movies.get(i).isFav();
             if (isTicked){
                 Log.d(TAG, "updateDB: addFavourite Method called");
-                moviesData.addFavourite(movies.get(i).getId(),moviesData);
-            }else{
-                Log.d(TAG, "updateDB: addFavourite Method didn't called");
+                moviesData.addFavourite(movies.get(i).getId());
             }
         }
     }

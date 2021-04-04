@@ -2,7 +2,6 @@ package com.coderx.assignment02;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -34,13 +33,22 @@ public class EditSelectedActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_selected);
 
         moviesData = new MoviesData(this);
+        // getting data from previous intent
         Bundle bundle = getIntent().getExtras();
         int id = 0;
         if (bundle != null){
             id = bundle.getInt("movieId");
         }
         initViews(); // initializing the all views
-        updateActivity(moviesData.selectedMovie(moviesData.getSelectedMovie(moviesData,id))); // updating the activity
+        // getting data from db and update the ui
+        final int finalId1 = id;
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                updateActivity(moviesData.selectedMovie(moviesData.getSelectedMovie(finalId1))); // updating the activity
+            }
+        });
+
 
         /*Text Watcher for Year*/
         TextWatcher textWatcher = new TextWatcher() {
@@ -59,7 +67,7 @@ public class EditSelectedActivity extends AppCompatActivity {
                 String value = editable.toString();
                 int min = 1895;
                 int max = Calendar.getInstance().get(Calendar.YEAR); // getting the current year
-                int n = 0;
+                int n;
                 try{
                     n = Integer.parseInt(value);
                     if (value.length() == 4){
@@ -104,7 +112,7 @@ public class EditSelectedActivity extends AppCompatActivity {
         favourite_check = findViewById(R.id.favourite_check);
     }
 
-    private void updateDB(int id){
+    private void updateDB(final int id){
        /*click listener for radioGroup*/
         if (fav.isChecked()){
             isFav = true;
@@ -118,11 +126,18 @@ public class EditSelectedActivity extends AppCompatActivity {
             Log.d(TAG, "updateDB: updating start");
             // creating movie object
             float s = movieRating.getRating();
-            Movie movie = new Movie(id,movieTitle.getText().toString(), Integer.parseInt(movieYear.getText().toString()),
+            final Movie movie = new Movie(id,movieTitle.getText().toString(), Integer.parseInt(movieYear.getText().toString()),
                     movieDirector.getText().toString(),movieActors.getText().toString(),(int)s,movieReview.getText().toString(),
                     isFav);
 
-            moviesData.updateSelectedMovie(id,moviesData,movie); // calling the update method
+            // update the db on separate thread
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    moviesData.updateSelectedMovie(id,movie); // calling the update method
+                }
+            }).start();
+
             Toast.makeText(this, "Movie Updated!", Toast.LENGTH_SHORT).show();
             Log.d(TAG, "updateDB: movie updated successfully");
         }catch (Exception ex){

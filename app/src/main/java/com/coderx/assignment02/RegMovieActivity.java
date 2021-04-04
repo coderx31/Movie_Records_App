@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 
@@ -20,6 +21,7 @@ public class RegMovieActivity extends AppCompatActivity {
     private EditText input_name, input_year, input_director, input_actors, input_rating, input_review;
     private Button btnSave;
     private MoviesData movieData;
+    private boolean checked;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +73,7 @@ public class RegMovieActivity extends AppCompatActivity {
                 String value = editable.toString();
                 int min = 1895;
                 int max = Calendar.getInstance().get(Calendar.YEAR); // getting the current year
-                int n = 0;
+                int n;
                  try{
                      n = Integer.parseInt(value);
                      if (value.length() == 4){
@@ -95,23 +97,48 @@ public class RegMovieActivity extends AppCompatActivity {
     private void createMovie(){
         try {
             Log.d(TAG, "createMovie: starting");
-            Movie movie = new Movie(1,input_name.getText().toString(), Integer.parseInt(input_year.getText().toString()),
+            final Movie movie = new Movie(1,input_name.getText().toString(), Integer.parseInt(input_year.getText().toString()),
                     input_director.getText().toString(),input_actors.getText().toString(),Integer.parseInt(input_rating.getText().toString()),
                     input_review.getText().toString(),false);
 
-            movieData.addMovie(movie,movieData);
-            Toast.makeText(this, "Movie Added to the database", Toast.LENGTH_SHORT).show();
-            Log.d(TAG, "createMovie: Successfully added to the database");
-            clearFields();
+
+            checked = false;
+
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    ArrayList<Movie> movies = new ArrayList<>(); // creating arrayList and retrieve data from db
+                    movies = movieData.retrieveData(movieData.getCursor());
+
+                    for (Movie movie1 : movies){
+                        if (movie.getTitle().toLowerCase().equals(movie1.getTitle().toLowerCase())){
+                            Log.d(TAG, "run: error! this name already in Database");
+                           checked = true;
+                        }
+                    }
+
+                }
+            });
+
+            thread.start();
+            thread.join();
+
+            if (!checked){
+                movieData.addMovie(movie); // movie created and added to the database
+                Toast.makeText(this, "Movie Added to the database", Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "createMovie: Successfully added to the database");
+                clearFields();
+            }else{
+                Toast.makeText(this, "This name is already in the database", Toast.LENGTH_SHORT).show();
+            }
+
+
         }catch (Exception ex){
             System.out.println("Error Occurred!");
             Toast.makeText(this, "Error while creating movie", Toast.LENGTH_SHORT).show();
             Log.e(TAG, "createMovie: Error occurred!", null);
-        }finally {
-            movieData.close(); // closing the database connection
         }
 
-        //DONE
     }
 
 

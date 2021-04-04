@@ -91,7 +91,7 @@
         android:numStars="10"
         android:stepSize="1.0"
         android:isIndicator="false"
-        style="?android:attr/ratingBarStyleSmall"
+        style="@style/Widget.AppCompat.RatingBar.Indicator"
         android:progressTint="@color/yellow"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"

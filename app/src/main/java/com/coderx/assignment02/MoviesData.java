@@ -43,9 +43,9 @@ public class MoviesData extends SQLiteOpenHelper {
     }
 
     /*adding data to the database*/
-    public void addMovie(Movie movie,MoviesData moviesData){
+    public void addMovie(Movie movie){
         Log.d(TAG, "addMovie: adding a movie to database");
-        SQLiteDatabase db = moviesData.getWritableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(MovieConstant.MOVIE_TITLE, movie.getTitle());
         values.put(MovieConstant.YEAR,movie.getYear());
@@ -82,16 +82,16 @@ public class MoviesData extends SQLiteOpenHelper {
         return movies; // returning all movies from the database
     }
 
-    public Cursor getCursor(MoviesData moviesData){
-        SQLiteDatabase db = moviesData.getReadableDatabase();
+    public Cursor getCursor(){
+        SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(MovieConstant.TABLE_NAME,FROM,null,null,null,null,MovieConstant.MOVIE_TITLE+ORDER_BY);
         return cursor;
     }
 
     /*adding selected movies as favourite to database*/
-    public void addFavourite(int id, MoviesData moviesData){
+    public void addFavourite(int id){
         Log.d(TAG, "addFavourite: updating movie");
-        SQLiteDatabase db = moviesData.getWritableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(MovieConstant.IS_FAV,1); // setting the is_fav to 1 in db
 
@@ -132,15 +132,15 @@ public class MoviesData extends SQLiteOpenHelper {
 
     }
 
-    public Cursor getFavMovies(MoviesData moviesData){
-        SQLiteDatabase db = moviesData.getReadableDatabase();
+    public Cursor getFavMovies(){
+        SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM "+MovieConstant.TABLE_NAME+" WHERE "+MovieConstant.IS_FAV+ " = ?",new String[]{String.valueOf(1)});
         return cursor;
     }
 
-    public void updateFav(int id, MoviesData moviesData){
+    public void updateFav(int id){
         Log.d(TAG, "updateFav: updating movie");
-        SQLiteDatabase db = moviesData.getWritableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(MovieConstant.IS_FAV,0); // setting the is_fav to 0 in db
 
@@ -157,10 +157,10 @@ public class MoviesData extends SQLiteOpenHelper {
 
 
     /*Update Selected Movie*/
-    public void updateSelectedMovie(int id, MoviesData moviesData, Movie movie){
+    public void updateSelectedMovie(int id, Movie movie){
 
         Log.d(TAG, "updateSelectedMovie: updating selected movie");
-        SQLiteDatabase db = moviesData.getWritableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(MovieConstant.MOVIE_TITLE, movie.getTitle());
         values.put(MovieConstant.YEAR,movie.getYear());
@@ -183,8 +183,8 @@ public class MoviesData extends SQLiteOpenHelper {
     }
 
     /* get selected movie from the db and create a movie object*/
-    public Cursor getSelectedMovie(MoviesData moviesData, int id){
-        SQLiteDatabase db = moviesData.getReadableDatabase();
+    public Cursor getSelectedMovie( int id){
+        SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM "+MovieConstant.TABLE_NAME+" WHERE "+ MovieConstant.ID+ " = ?", new String[]{String.valueOf(id)});
         return cursor;
     }

@@ -1,21 +1,17 @@
 package com.coderx.assignment02;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
 
 public class RatingRecViewAdapter extends RecyclerView.Adapter<RatingRecViewAdapter.ViewHolder> {
@@ -53,16 +49,7 @@ public class RatingRecViewAdapter extends RecyclerView.Adapter<RatingRecViewAdap
             }
         });
 
-        holder.parent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //TODO
-                // implementation
-                Intent intent = new Intent(mContext,SelectedRatingViewActivity.class);
-                intent.putExtra("movie",movies.get(position).getTitle());
-                mContext.startActivity(intent);
-            }
-        });
+
     }
 
     @Override

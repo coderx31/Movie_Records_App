@@ -21,4 +21,6 @@
     <string name="favourite">Favourite</string>
     <string name="search_movie">Search Movie...</string>
     <string name="find_movie_in_imdb">Find movie in IMDB</string>
+    <string name="image_of_selected_movie">Image of Selected Movie</string>
+    <string name="search_icon">Search Icon</string>
 </resources>
