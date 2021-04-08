@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.coderx.assignment02">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
 
     <application
         android:allowBackup="true"
@@ -11,33 +13,39 @@
         android:roundIcon="@drawable/app_icon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ImageDisplayActivity"></activity>
+        <activity android:name=".ImageDisplayActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="Image"
+             />
         <activity android:name=".SelectedRatingViewActivity"
-            android:configChanges="orientation|screenSize"
-            android:label="IMDB Ratings"/>
+            android:label="IMDB Ratings"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+           />
         <activity android:name=".EditSelectedActivity"
-            android:configChanges="orientation|screenSize"
-            android:label="Change the values of Movie"/>
+            android:label="Edit Movie"
+            />
         <activity android:name=".MainActivity"
-            android:configChanges="orientation|screenSize"/>
+           />
         <activity android:name=".RatingActivity"
-            android:configChanges="orientation|screenSize"
-            android:label="Movies"/>
+            android:label="Select Movie for IMDB Ratings"
+           />
         <activity android:name=".SearchActivity"
-            android:configChanges="orientation|screenSize"
-            android:label="Search"/>
+            android:label="Search by Name, Actors or Director"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:windowSoftInputMode="stateUnchanged|adjustResize"
+            />
         <activity android:name=".EditMovieActivity"
-            android:configChanges="orientation|screenSize"
-            android:label="Movies"/>
+            android:label="Select Movie to Edit"
+            />
         <activity android:name=".FavouriteActivity"
-            android:configChanges="orientation|screenSize"
-            android:label="Favourite Movies"/>
+            android:label="Favourite Movies"
+           />
         <activity android:name=".DisplayMoviesActivity"
-            android:configChanges="orientation|screenSize"
-            android:label="All Movies"/>
+            android:label="All Movies"
+           />
         <activity android:name=".RegMovieActivity"
-            android:configChanges="orientation|screenSize"
-            android:label="Enter Movie Details"/>
+            android:label="Enter New Movie"
+            />
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

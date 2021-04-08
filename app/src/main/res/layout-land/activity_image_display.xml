@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ImageDisplayActivity"
-    android:background="@drawable/portrait_bg">
+    android:background="@drawable/landscape_bg">
 
     <ImageView
         android:id="@+id/posterView"

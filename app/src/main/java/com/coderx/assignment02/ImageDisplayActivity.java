@@ -21,16 +21,17 @@ public class ImageDisplayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_image_display);
 
         posterView = findViewById(R.id.posterView);
-        Bundle bundle = getIntent().getExtras();
-        if (bundle != null){
-            image_url = bundle.getString("image"); // updating the image_url
 
-        }
 
 
         new Thread(new Runnable() {
             @Override
             public void run() {
+                Bundle bundle = getIntent().getExtras();
+                if (bundle != null){
+                    image_url = bundle.getString("image"); // updating the image_url
+
+                }
                 try {
                     runOnUiThread(new Runnable() {
                         @Override
