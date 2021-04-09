@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -104,6 +103,7 @@ public class RegMovieActivity extends AppCompatActivity {
 
             checked = false;
 
+            // use a thread to check if the movie name currently in the database or not ?
             Thread thread = new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -142,6 +142,7 @@ public class RegMovieActivity extends AppCompatActivity {
     }
 
 
+    // after a movie added successfully to database, all the fields will cleared
     private void clearFields(){
         Log.d(TAG, "clearFields: method called!");
         input_name.setText("");

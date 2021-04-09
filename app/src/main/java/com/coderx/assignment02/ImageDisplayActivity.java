@@ -15,6 +15,7 @@ public class ImageDisplayActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // policies to download image from web
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         super.onCreate(savedInstanceState);
@@ -37,6 +38,7 @@ public class ImageDisplayActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             try {
+                                // after decoding update the ImageView
                                 URL url = new URL(image_url);
                                 Bitmap bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
                                 posterView.setImageBitmap(bitmap);

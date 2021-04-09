@@ -50,7 +50,8 @@ public class EditSelectedActivity extends AppCompatActivity {
         });
 
 
-        /*Text Watcher for Year*/
+        /*Text Watcher for limit the year between 1895 and current year*/
+        /*https://developer.android.com/reference/android/text/TextWatcher*/
         TextWatcher textWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -122,6 +123,7 @@ public class EditSelectedActivity extends AppCompatActivity {
         }
 
 
+        /*use try-catch to avoid run time exception and crashing the application*/
         try {
             Log.d(TAG, "updateDB: updating start");
             // creating movie object
@@ -130,7 +132,7 @@ public class EditSelectedActivity extends AppCompatActivity {
                     movieDirector.getText().toString(),movieActors.getText().toString(),(int)s,movieReview.getText().toString(),
                     isFav);
 
-            // update the db on separate thread
+            // update the db on separate thread to balance the skipped frames
             new Thread(new Runnable() {
                 @Override
                 public void run() {

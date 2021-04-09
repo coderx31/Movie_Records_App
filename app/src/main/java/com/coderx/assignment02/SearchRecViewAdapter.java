@@ -13,7 +13,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.Collection;
-public class SearchRecViewAdapter extends RecyclerView.Adapter<SearchRecViewAdapter.ViewHolder> implements Filterable {
+public class SearchRecViewAdapter extends RecyclerView.Adapter<SearchRecViewAdapter.ViewHolder> implements Filterable { // implements by filterable
     private static final String TAG = "SearchViewAdapter";
     private ArrayList<Movie> movies = new ArrayList<>(); // for movies from db
     private Context mContext;

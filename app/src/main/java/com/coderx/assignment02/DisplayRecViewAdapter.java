@@ -11,7 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
-
+/*https://youtu.be/fis26HvvDII*/
+/*from this video I learnt how to work with Recycler view and Adapter*/
 public class DisplayRecViewAdapter extends RecyclerView.Adapter<DisplayRecViewAdapter.ViewHolder> {
     private static final String TAG = "DisplayRecViewAdapter";
     private ArrayList<Movie> movies = new ArrayList<>();  // creating arrayList for set the data to adapter
@@ -39,6 +40,7 @@ public class DisplayRecViewAdapter extends RecyclerView.Adapter<DisplayRecViewAd
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 Movie movie = movies.get(position);
+                // updating the selected movie fav state
                 if (b){
                     movie.setFav(true);
                 }else{

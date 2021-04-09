@@ -16,13 +16,13 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Objects.requireNonNull(getSupportActionBar()).hide(); // hiding the title bar
-        // Hide the status bar
+        // Hide the status bar and set full-screen
         View view = getWindow().getDecorView();
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
         view.setSystemUiVisibility(uiOptions);
         setContentView(R.layout.activity_splash);
 
-        /*creating new Handler method to go MainActivity*/
+        /*creating new Handler method to go MainActivity after 4 second*/
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

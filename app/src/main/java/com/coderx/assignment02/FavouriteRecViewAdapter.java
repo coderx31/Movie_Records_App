@@ -82,6 +82,7 @@ public class FavouriteRecViewAdapter extends RecyclerView.Adapter<FavouriteRecVi
     }
 
     public void updateDB(Context context){
+        // updating the movies in db
         MoviesData moviesData = new MoviesData(context);
         for (int i=0; i<movies.size(); i++){
             boolean isTicked = movies.get(i).isFav();

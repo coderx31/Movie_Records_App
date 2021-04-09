@@ -26,7 +26,7 @@ public class RatingActivity extends AppCompatActivity {
         //calling the initViews method
         initViews();
 
-
+        // loading data from the database using thread
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -50,6 +50,7 @@ public class RatingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String selectedMovie = RatingRecViewAdapter.movieTitle;
+                //check if the user has select movie or not
                 if (selectedMovie == null){
                     Toast.makeText(RatingActivity.this, "Please Select a Movie", Toast.LENGTH_SHORT).show();
                 }else{

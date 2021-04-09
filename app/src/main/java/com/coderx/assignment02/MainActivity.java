@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Objects.requireNonNull(getSupportActionBar()).hide();
+        Objects.requireNonNull(getSupportActionBar()).hide(); // removing title-bar from the activity
         setContentView(R.layout.activity_main);
 
         /*calling the views initializing method*/

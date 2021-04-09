@@ -66,14 +66,15 @@ public class SelectedRatingViewActivity extends AppCompatActivity {
                     JSONObject jsonObject = new JSONObject(movie_list.toString());
                     JSONArray movie_array = jsonObject.optJSONArray("results"); // extract the results array
 
+                    // use a for-loop to create APIMovies
                     for (int i=0; i<movie_array.length(); i++){
                         StringBuilder rating_list = new StringBuilder();
                         JSONObject object = (JSONObject) movie_array.get(i);
-                        id = object.getString("id");
-                        img_url = object.getString("image");
-                        movie_title = object.getString("title");
+                        id = object.getString("id");  // getting id
+                        img_url = object.getString("image");  // image_url
+                        movie_title = object.getString("title"); // title of the movie
 
-                        URL rating_url = new URL(movie_rating_url+api_key+id);
+                        URL rating_url = new URL(movie_rating_url+api_key+id); // according to the id implement url for get the rating
                         HttpURLConnection rating_conn = (HttpURLConnection) rating_url.openConnection();
 
                         BufferedReader bufferedReader1 = new BufferedReader(new InputStreamReader(rating_conn.getInputStream()));
@@ -83,8 +84,9 @@ public class SelectedRatingViewActivity extends AppCompatActivity {
                         }
 
                         JSONObject rating_object = new JSONObject(rating_list.toString());
-                        String rating = rating_object.getString("totalRating");
+                        String rating = rating_object.getString("totalRating"); // get the rating
 
+                        // converting string rating to floating point number
                         float movie_rating;
                         if (rating.equals("") || rating.equals("null")) {
                             movie_rating = (float) 0.0;
@@ -92,9 +94,9 @@ public class SelectedRatingViewActivity extends AppCompatActivity {
                             movie_rating = Float.parseFloat(rating);
                         }
 
-
+                        // creating APIMovieModel
                         ApiMovieModel movieModel = new ApiMovieModel(id,movie_title,movie_rating,img_url);
-                        movieModels.add(movieModel);
+                        movieModels.add(movieModel); // adding model to the arrayList
                     }
                 } catch (Exception e) {
                     e.getMessage();
@@ -102,6 +104,7 @@ public class SelectedRatingViewActivity extends AppCompatActivity {
 
 
                 try {
+                    // updating the ui
                    runOnUiThread(new Runnable() {
                        @Override
                        public void run() {

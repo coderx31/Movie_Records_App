@@ -21,12 +21,13 @@ public class EditMovieActivity extends AppCompatActivity {
         adapter = new EditRecViewAdapter(this);
         moviesData = new MoviesData(this);
 
+        // create a separate thread to load data from the database
         new Thread(new Runnable() {
             @Override
             public void run() {
                 movies = moviesData.retrieveData(moviesData.getCursor()); // loading data to the arrayList
 
-                // update the ui
+                // update the ui using runonuithread
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
