@@ -40,16 +40,6 @@ public class RatingRecViewAdapter extends RecyclerView.Adapter<RatingRecViewAdap
         holder.titleSelect.setChecked(position == lastCheckedPosition);
 
 
-
-        holder.titleSelect.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                movieTitle = movies.get(position).getTitle();
-                Toast.makeText(mContext, movies.get(position).getTitle()+ " Selected ", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
     }
 
     @Override
@@ -77,6 +67,8 @@ public class RatingRecViewAdapter extends RecyclerView.Adapter<RatingRecViewAdap
                 @Override
                 public void onClick(View view) {
                     lastCheckedPosition = getAdapterPosition();
+                    movieTitle = movies.get(getAdapterPosition()).getTitle();
+                    Toast.makeText(mContext, movies.get(getAdapterPosition()).getTitle()+ " Selected ", Toast.LENGTH_SHORT).show();
                     notifyDataSetChanged();
                 }
             });
